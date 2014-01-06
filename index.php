@@ -9,9 +9,9 @@ $topThreeGold = array();
 $topThreeTotal = array();
 $data = array();
 $countries = array();
-preg_match_all("/<li class=\"gold\"\s\w+=[\"|\'][\w|\d|\.|;|:]+[\"|\']>(\d+)<\/li>/",$content,$topThreeGold);
-preg_match_all("/<li class=\"total\">(\d+)<\/li>/",$content,$topThreeTotal);
-preg_match_all("/country\/\d+\">([\w|\s]+)<\/a>/",$content,$countries);
+preg_match_all('~<li\s+class="gold"\s*\w+=["\'][\w\d.;:]+["\']\s*>(\d+)</li>~',$content,$topThreeGold);
+preg_match_all('~<li\s+class="total">(\d+)</li>~',$content,$topThreeTotal);
+preg_match_all('~country/\d+">([\w\s]+)</a>~',$content,$countries);
 for($i=0;$i<3;$i++){
     if(!isset($data[$countries[1][$i]])){ 
         $data[$countries[1][$i]]['gold'] = (int)$topThreeGold[1][$i];
@@ -22,8 +22,8 @@ for($i=0;$i<3;$i++){
 // getting the medal counts for everyone else
 $fourthPlaceGold= array();
 $fourthPlaceTotal = array();
-preg_match_all("/<td class=\"gold\">(\d+)<\/td>/",$content,$fourthPlaceGold);
-preg_match_all("/<td class=\"total bold\">(\d+)<\/td>/",$content,$fourthPlaceTotal);
+preg_match_all('~<td\s+class="gold">(\d+)</td>~',$content,$fourthPlaceGold);
+preg_match_all('~<td\s+class="total bold">(\d+)</td>~',$content,$fourthPlaceTotal);
 $fourthPlaceCount = count($fourthPlaceGold[1]);
 for($i=0;$i<7;$i++){
     // Unlike the medal count, the countries are pulled at once, so we have to offset
